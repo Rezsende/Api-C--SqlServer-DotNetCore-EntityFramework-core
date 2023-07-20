@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using c_.Context;
 using c_.Entities;
+using c_.Repository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -14,18 +15,29 @@ namespace c_.Controllers
     [Route("[controller]")]
     public class UsuarioController : ControllerBase
     {
+
+        private readonly UsuarioRepository _usuarioRepository;
+
+        public UsuarioController(UsuarioRepository usuarioRepository)
+        {
+            _usuarioRepository = usuarioRepository;
+        }
+
         private readonly FarmaContext _context;
         public UsuarioController(FarmaContext farmaContext)
         {
             _context = farmaContext;
         }
+
+
+
         [HttpPost]
         public IActionResult Create(Usuario usuario)
         {
             _context.Add(usuario);
             _context.SaveChanges();
-            // return Ok(usuario);
-            return CreatedAtAction(nameof(UsuarioPorId), new { id = usuario.Id }, usuario);
+            return Ok(usuario);
+
         }
         [HttpGet("{id}")]
         public IActionResult UsuarioPorId(int id)
@@ -42,18 +54,14 @@ namespace c_.Controllers
 
             return Ok(usuario);
         }
+        
         [HttpGet]
         public IActionResult UsuarioList()
         {
-            var usuarios = _context.usuarios.ToList();
-
-            if (usuarios == null || usuarios.Count == 0)
-            {
-                return NotFound(); // Retorna um status 404 se não houver usuários encontrados.
-            }
-
-            return Ok(usuarios);
+         return _usuarioRepository.UsuarioList();
         }
+        
+        
         [HttpPut("{id}")]
         public IActionResult AtualizarUsuario(int id, Usuario usuario)
         {

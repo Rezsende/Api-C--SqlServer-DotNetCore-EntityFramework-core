@@ -3888,11 +3888,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\c#\\c#.csproj",
+      "projectUniqueName": "C:\\dotnet\\c#\\c#.csproj",
       "projectName": "c#",
-      "projectPath": "C:\\c#\\c#.csproj",
+      "projectPath": "C:\\dotnet\\c#\\c#.csproj",
       "packagesPath": "C:\\Users\\Fabrica de Software\\.nuget\\packages\\",
-      "outputPath": "C:\\c#\\obj\\",
+      "outputPath": "C:\\dotnet\\c#\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
