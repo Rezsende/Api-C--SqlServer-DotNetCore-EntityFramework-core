@@ -5,9 +5,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using c_.Context;
 using c_.Entities;
-using c_.Repository;
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+
+
+
+
+
 
 namespace c_.Controllers
 {
@@ -16,18 +21,16 @@ namespace c_.Controllers
     public class UsuarioController : ControllerBase
     {
 
-        private readonly UsuarioRepository _usuarioRepository;
-
-        public UsuarioController(UsuarioRepository usuarioRepository)
-        {
-            _usuarioRepository = usuarioRepository;
-        }
 
         private readonly FarmaContext _context;
+
         public UsuarioController(FarmaContext farmaContext)
         {
+
             _context = farmaContext;
         }
+
+
 
 
 
@@ -54,14 +57,52 @@ namespace c_.Controllers
 
             return Ok(usuario);
         }
-        
-        [HttpGet]
+
+
+
+
         public IActionResult UsuarioList()
         {
-         return _usuarioRepository.UsuarioList();
+            var usuarios = _context.usuarios.ToList();
+            int quantidadeUsuarios = usuarios.Count;
+
+            if (usuarios == null || usuarios.Count == 0)
+            {
+                return NotFound("Nenhum usuário encontrado na lista.");
+            }
+
+            var usuariosPorNivel = _context.usuarios
+        .GroupBy(u => u.Niviel) // Agrupar os usuários pelo campo Nivel
+        .Select(g => new
+        {
+            Nivel = g.Key,
+            Quantidade = g.Count()
+        })
+        .ToList();
+
+            var resposta = new
+            {
+                Message = "Todos os Usuários do Sistema",
+                QuantidadeUsuarios = quantidadeUsuarios,
+                usuariosPorNivel = usuariosPorNivel,
+                Usuarios = usuarios
+            };
+
+
+            return Ok(resposta);
         }
-        
-        
+
+
+
+
+
+
+
+
+
+
+
+
         [HttpPut("{id}")]
         public IActionResult AtualizarUsuario(int id, Usuario usuario)
         {
