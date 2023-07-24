@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using c_.Context;
 
@@ -10,9 +11,11 @@ using c_.Context;
 namespace c_.Migrations
 {
     [DbContext(typeof(FarmaContext))]
-    partial class FarmaContextModelSnapshot : ModelSnapshot
+    [Migration("20230724195635_uploaddeimagem")]
+    partial class uploaddeimagem
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -29,6 +32,9 @@ namespace c_.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<bool>("Ativo")
+                        .HasColumnType("bit");
+
                     b.Property<string>("CPF")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -42,9 +48,6 @@ namespace c_.Migrations
 
                     b.Property<string>("Nome")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhotoFileName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Telefone")

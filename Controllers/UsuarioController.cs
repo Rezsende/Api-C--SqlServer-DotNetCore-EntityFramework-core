@@ -5,43 +5,43 @@ using System.Linq;
 using System.Threading.Tasks;
 using c_.Context;
 using c_.Entities;
-
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-
-
-
-
-
 
 namespace c_.Controllers
 {
     [ApiController]
     [Route("[controller]")]
     public class UsuarioController : ControllerBase
-    {
-
-
+    {   
         private readonly FarmaContext _context;
 
         public UsuarioController(FarmaContext farmaContext)
         {
-
             _context = farmaContext;
         }
 
-
-
-
-
         [HttpPost]
-        public IActionResult Create(Usuario usuario)
+        public IActionResult Create([FromForm] Usuario usuario)
         {
+            if (usuario.PhotoFile != null && usuario.PhotoFile.Length > 0)
+            {
+                var filePath = Path.Combine("Storage", usuario.PhotoFile.FileName);
+                using Stream fileStream = new FileStream(filePath, FileMode.Create);
+                usuario.PhotoFile.CopyTo(fileStream);
+                usuario.PhotoFileName = usuario.PhotoFile.FileName; 
+            }
+            else
+            {
+                usuario.PhotoFileName = "";
+            }
+
             _context.Add(usuario);
             _context.SaveChanges();
             return Ok(usuario);
-
         }
+
+
         [HttpGet("{id}")]
         public IActionResult UsuarioPorId(int id)
         {
@@ -50,6 +50,7 @@ namespace c_.Controllers
                 return NotFound();
             return Ok(usuarioId);
         }
+
         [HttpGet("obeterpornome")]
         public IActionResult UsuarioPorNome(string nome)
         {
@@ -58,10 +59,8 @@ namespace c_.Controllers
             return Ok(usuario);
         }
 
-
-
-
-        public IActionResult UsuarioList()
+       [HttpGet("Todos")]
+       public IActionResult UsuarioList()
         {
             var usuarios = _context.usuarios.ToList();
             int quantidadeUsuarios = usuarios.Count;
@@ -93,16 +92,6 @@ namespace c_.Controllers
         }
 
 
-
-
-
-
-
-
-
-
-
-
         [HttpPut("{id}")]
         public IActionResult AtualizarUsuario(int id, Usuario usuario)
         {
@@ -114,12 +103,14 @@ namespace c_.Controllers
             usuarioBanco.Telefone = usuario.Telefone;
             usuarioBanco.Cargo = usuario.Cargo;
             usuarioBanco.Niviel = usuario.Niviel;
-            usuarioBanco.Ativo = usuario.Ativo;
+
 
             _context.usuarios.Update(usuarioBanco);
             _context.SaveChanges();
             return Ok(usuarioBanco);
         }
+        
+        
         [HttpDelete("{id}")]
         public IActionResult DeletarUsuario(int id)
         {

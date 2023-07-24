@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using c_.Context;
 
@@ -10,9 +11,11 @@ using c_.Context;
 namespace c_.Migrations
 {
     [DbContext(typeof(FarmaContext))]
-    partial class FarmaContextModelSnapshot : ModelSnapshot
+    [Migration("20230724202124_updatephotos")]
+    partial class updatephotos
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -45,6 +48,7 @@ namespace c_.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhotoFileName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Telefone")

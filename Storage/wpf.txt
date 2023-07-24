@@ -1,0 +1,12 @@
+<Grid>
+<Label>Ola mundo</Label>
+<Button></Button>
+</Grid>
+-------------------------
+<StackPanek>
+<Label>Ola mundo</Label>
+<Button FontWeight="Bold" FontSize="20"></Button>
+</StackPanek>
+
+<TextBlock>
+<HyperLink>

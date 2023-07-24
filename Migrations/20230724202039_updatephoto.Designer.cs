@@ -11,8 +11,8 @@ using c_.Context;
 namespace c_.Migrations
 {
     [DbContext(typeof(FarmaContext))]
-    [Migration("20230719133911_criandoTabelaUsuario")]
-    partial class criandoTabelaUsuario
+    [Migration("20230724202039_updatephoto")]
+    partial class updatephoto
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -32,9 +32,6 @@ namespace c_.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<bool>("Ativo")
-                        .HasColumnType("bit");
-
                     b.Property<string>("CPF")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -47,6 +44,10 @@ namespace c_.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhotoFileName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
