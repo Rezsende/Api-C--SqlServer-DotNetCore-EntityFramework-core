@@ -14,6 +14,10 @@ namespace c_.Context
 
         }
         public DbSet<Usuario> usuarios{get; set;}
+
+       
+
+
       
     }
 }

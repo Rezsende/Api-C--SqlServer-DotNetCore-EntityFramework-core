@@ -5,6 +5,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using c_.Context;
 using c_.Entities;
+using c_.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -13,7 +15,7 @@ namespace c_.Controllers
     [ApiController]
     [Route("[controller]")]
     public class UsuarioController : ControllerBase
-    {   
+    {
         private readonly FarmaContext _context;
 
         public UsuarioController(FarmaContext farmaContext)
@@ -29,7 +31,7 @@ namespace c_.Controllers
                 var filePath = Path.Combine("Storage", usuario.PhotoFile.FileName);
                 using Stream fileStream = new FileStream(filePath, FileMode.Create);
                 usuario.PhotoFile.CopyTo(fileStream);
-                usuario.PhotoFileName = usuario.PhotoFile.FileName; 
+                usuario.PhotoFileName = usuario.PhotoFile.FileName;
             }
             else
             {
@@ -59,8 +61,9 @@ namespace c_.Controllers
             return Ok(usuario);
         }
 
-       [HttpGet("Todos")]
-       public IActionResult UsuarioList()
+        [Authorize]
+        [HttpGet("Todos")]
+        public IActionResult UsuarioList()
         {
             var usuarios = _context.usuarios.ToList();
             int quantidadeUsuarios = usuarios.Count;
@@ -109,8 +112,8 @@ namespace c_.Controllers
             _context.SaveChanges();
             return Ok(usuarioBanco);
         }
-        
-        
+
+
         [HttpDelete("{id}")]
         public IActionResult DeletarUsuario(int id)
         {
@@ -123,5 +126,38 @@ namespace c_.Controllers
         }
 
 
+        [HttpPost("Login")]
+        public IActionResult Login(Usuario usuario)
+        {
+            if (!string.IsNullOrEmpty(usuario.Email) && !string.IsNullOrEmpty(usuario.Senha))
+            {
+
+                var user = _context.usuarios.FirstOrDefault(u => u.Email == usuario.Email && u.Senha == usuario.Senha);
+
+                if (user != null)
+                {
+
+                    var token = TokenService.GenerateToken(user);
+                    var resposta = new
+                    {
+                        Id = user.Id,
+                        Nome = user.Nome,
+                        Telefone = user.Telefone,
+                        CPF = user.CPF,
+                        RG = user.Rg,
+                        Token = token,
+                    };
+                    return Ok(resposta);
+                }
+            }
+
+
+            return BadRequest("E-mail ou senha inválida");
+        }
+
     }
 }
+
+
+// -ng new spaangular --prefix=spa
+// -ng serve -o
