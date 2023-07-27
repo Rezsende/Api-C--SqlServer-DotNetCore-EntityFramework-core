@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "5iar4TvIyH6sLwY9ePfC1Om7fLsArCVF1fS8x8pA8iMbs839W9g0wn+KhknhtACHfrKN43CC2Q9BRvSyf7Hhsw==",
+  "dgSpecHash": "dvKkjSYfsESKHYtHtbekoO1YHi1Emr7C9vLsoQZjgOxtZPvsZ5frBcaagsXfndT8nLoTu+s2JCiksBckSFeF8Q==",
   "success": true,
   "projectFilePath": "C:\\dotnet\\c#\\c#.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Fabrica de Software\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\Fabrica de Software\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",
+    "C:\\Users\\Fabrica de Software\\.nuget\\packages\\fluentvalidation\\11.6.0\\fluentvalidation.11.6.0.nupkg.sha512",
     "C:\\Users\\Fabrica de Software\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\Fabrica de Software\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\7.0.9\\microsoft.aspnetcore.authentication.jwtbearer.7.0.9.nupkg.sha512",
     "C:\\Users\\Fabrica de Software\\.nuget\\packages\\microsoft.aspnetcore.openapi\\7.0.7\\microsoft.aspnetcore.openapi.7.0.7.nupkg.sha512",

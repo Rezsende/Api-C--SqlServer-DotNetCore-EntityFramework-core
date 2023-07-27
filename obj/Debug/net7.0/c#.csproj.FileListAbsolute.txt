@@ -151,3 +151,4 @@ C:\dotnet\c#\obj\Debug\net7.0\c#.pdb
 C:\dotnet\c#\obj\Debug\net7.0\c#.genruntimeconfig.cache
 C:\dotnet\c#\obj\Debug\net7.0\ref\c#.dll
 C:\dotnet\c#\bin\Debug\net7.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\dotnet\c#\bin\Debug\net7.0\FluentValidation.dll

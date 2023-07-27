@@ -13,14 +13,14 @@ namespace c_.Services
 {
     public class TokenService
     {
-        public static object GenerateToken(Usuario usuario)
+        public static object GenerateToken(User user)
         {
             var chave = Encoding.ASCII.GetBytes(Chave.Secret);
             var tokenConfig = new SecurityTokenDescriptor
             {
                Subject = new System.Security.Claims.ClaimsIdentity(new Claim[]
                {
-                    new Claim("usuarioId", usuario.Id.ToString()),
+                    new Claim("UserID", user.Id.ToString()),
                }),
                Expires = DateTime.UtcNow.AddHours(1),
                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(chave), SecurityAlgorithms.HmacSha256Signature),
