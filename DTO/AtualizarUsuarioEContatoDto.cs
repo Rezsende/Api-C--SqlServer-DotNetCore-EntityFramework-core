@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace c_.DTO
 {
-    public class CriarUsuarioEContatoDto
+    public class AtualizarUsuarioEContatoDto
     {
         public string Nome { get; set; }
         public string Usuarios { get; set; }
@@ -20,13 +20,12 @@ namespace c_.DTO
         public string Instagram { get; set; }
         public string Facebook { get; set; }
         public string Twitter { get; set; }
-       
+
         public int Cep { get; set; }
         public string Bairro { get; set; }
         public string Rua { get; set; }
         public int Numero { get; set; }
         public string Complemento { get; set; }
         public string Moradia { get; set; }
-
     }
 }

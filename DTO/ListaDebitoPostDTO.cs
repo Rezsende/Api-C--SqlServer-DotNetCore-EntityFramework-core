@@ -13,9 +13,6 @@ namespace c_.DTO
 
     public double Valor {get; set; } = 0; 
     public int UserId { get; set; }
-    // public string NomeUsuario { get; set; }
-    // public string NomeUsuario {get; set;} = string.Empty;
-
- 
-    }
+    
+   }
 }

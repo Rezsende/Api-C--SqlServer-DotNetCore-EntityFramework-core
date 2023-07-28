@@ -15,8 +15,8 @@ namespace c_.Entities
         public int Nivil {get; set;}
         public string Estatus {get; set;}= string.Empty;
         public List<ListaDebito> ListaDebito { get; set;}
-
         public ContatoUser ContatoUsers { get; set;}
+        public Endereco Endereco { get; set;}
       
         
         

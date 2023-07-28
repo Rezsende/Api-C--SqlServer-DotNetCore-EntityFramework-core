@@ -37,7 +37,7 @@ namespace c_.Controllers
         [HttpPost]
         public async Task<ActionResult<List<ListaDebito>>> PostDebitosPorId(ListaDebitoPostDTO request)
         {
-            var user = await _context.User.FindAsync(request.UserId);
+            var user = await _context.Users.FindAsync(request.UserId);
             if (user == null)
                 return NotFound();
 

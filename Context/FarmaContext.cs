@@ -13,13 +13,12 @@ namespace c_.Context
         {
 
         }
-        public DbSet<Usuario> Usuarios { get; set; }
-
-        public DbSet<User> User { get; set; }    
+       
+        public DbSet<User> Users { get; set; }    
         public DbSet<ListaDebito> ListaDebitos { get; set; }
-
         public DbSet<ContatoUser> ContatoUsers {get; set;}
-
+        public DbSet<Endereco> Enderecos {get; set;}
+       
      
 
 
