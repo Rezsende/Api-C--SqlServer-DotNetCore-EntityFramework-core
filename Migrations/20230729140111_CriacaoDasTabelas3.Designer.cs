@@ -12,8 +12,8 @@ using c_.Context;
 namespace c_.Migrations
 {
     [DbContext(typeof(FarmaContext))]
-    [Migration("20230727184839_appCriacaoTablesEndereco")]
-    partial class appCriacaoTablesEndereco
+    [Migration("20230729140111_CriacaoDasTabelas3")]
+    partial class CriacaoDasTabelas3
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -113,6 +113,31 @@ namespace c_.Migrations
                     b.ToTable("Enderecos");
                 });
 
+            modelBuilder.Entity("c_.Entities.InformacaoExtra", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("Data")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Mensagem")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("InformacaoExtras");
+                });
+
             modelBuilder.Entity("c_.Entities.ListaDebito", b =>
                 {
                     b.Property<int>("Id")
@@ -140,6 +165,26 @@ namespace c_.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("ListaDebitos");
+                });
+
+            modelBuilder.Entity("c_.Entities.Planos", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Plano")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("ValorPlano")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Planos");
                 });
 
             modelBuilder.Entity("c_.Entities.User", b =>
@@ -171,50 +216,30 @@ namespace c_.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("User");
+                    b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("c_.Entities.Usuario", b =>
+            modelBuilder.Entity("c_.Entities.UsersPlanos", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
 
-                    b.Property<string>("CPF")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Cargo")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Endereco")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("Niviel")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Nome")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("planosId")
+                        .HasColumnType("int");
 
-                    b.Property<string>("PhotoFileName")
-                        .HasColumnType("nvarchar(max)");
+                    b.HasKey("id");
 
-                    b.Property<string>("Rg")
-                        .HasColumnType("nvarchar(max)");
+                    b.HasIndex("UserId");
 
-                    b.Property<string>("Senha")
-                        .HasColumnType("nvarchar(max)");
+                    b.HasIndex("planosId");
 
-                    b.Property<string>("Telefone")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Usuarios");
+                    b.ToTable("UsersPlanos");
                 });
 
             modelBuilder.Entity("c_.Entities.ContatoUser", b =>
@@ -239,6 +264,17 @@ namespace c_.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("c_.Entities.InformacaoExtra", b =>
+                {
+                    b.HasOne("c_.Entities.User", "User")
+                        .WithMany("InformacaoExtras")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("c_.Entities.ListaDebito", b =>
                 {
                     b.HasOne("c_.Entities.User", "User")
@@ -250,6 +286,25 @@ namespace c_.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("c_.Entities.UsersPlanos", b =>
+                {
+                    b.HasOne("c_.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("c_.Entities.Planos", "planos")
+                        .WithMany()
+                        .HasForeignKey("planosId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+
+                    b.Navigation("planos");
+                });
+
             modelBuilder.Entity("c_.Entities.User", b =>
                 {
                     b.Navigation("ContatoUsers")
@@ -257,6 +312,8 @@ namespace c_.Migrations
 
                     b.Navigation("Endereco")
                         .IsRequired();
+
+                    b.Navigation("InformacaoExtras");
 
                     b.Navigation("ListaDebito");
                 });

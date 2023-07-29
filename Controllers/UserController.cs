@@ -115,15 +115,18 @@ namespace c_.Controllers
             var EnderecoUser = _context.Users
                 .Include(User => User.Endereco)
                 .ToList();
-
+            // var PlanoUser = _context.Users
+            //     .Include(User => User.Planos)
+            //     .ToList();
             var usuariosProjetados = user.Select(u => new
             {
                 Id = u.Id,
                 Nome = u.Nome,
                 Nivil = u.Nivil,
                 Estatus = u.Estatus,
+              
                 ContatoUser = u.ContatoUsers,
-                Endereco = u.Endereco
+                Endereco = u.Endereco,
             }).ToList();
 
 
@@ -163,7 +166,7 @@ namespace c_.Controllers
 
             return Ok(resultado);
         }
-        [Authorize]
+  
         [HttpPost("CriarUsuarioCompleto")]
         public IActionResult CriarUsuarioEContatoCompleto([FromBody] CriarUsuarioEContatoDto dto)
         {
@@ -186,7 +189,8 @@ namespace c_.Controllers
                 Telefone = dto.Telefone,
                 Instagran = dto.Instagram,
                 Facebook = dto.Facebook,
-                Twiter = dto.Twitter
+                Twiter = dto.Twitter,
+               
             };
 
             var novoEndereco = new Endereco
@@ -321,5 +325,9 @@ namespace c_.Controllers
             return Ok("Usuário, Contato e Endereço excluídos com sucesso!");
         }
 
+
+        
+    
+    
     }
 }

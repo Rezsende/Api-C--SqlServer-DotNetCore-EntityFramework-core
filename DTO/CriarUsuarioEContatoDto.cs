@@ -20,6 +20,7 @@ namespace c_.DTO
         public string Instagram { get; set; }
         public string Facebook { get; set; }
         public string Twitter { get; set; }
+         public string MsgPlano { get; set;}
        
         public int Cep { get; set; }
         public string Bairro { get; set; }

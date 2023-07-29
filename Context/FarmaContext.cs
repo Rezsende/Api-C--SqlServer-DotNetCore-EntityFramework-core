@@ -18,6 +18,9 @@ namespace c_.Context
         public DbSet<ListaDebito> ListaDebitos { get; set; }
         public DbSet<ContatoUser> ContatoUsers {get; set;}
         public DbSet<Endereco> Enderecos {get; set;}
+        public DbSet<Planos> Planos {get; set;}
+        public DbSet<UsersPlanos> UsersPlanos {get; set;}
+        public DbSet<InformacaoExtra> InformacaoExtras {get; set;}
        
      
 

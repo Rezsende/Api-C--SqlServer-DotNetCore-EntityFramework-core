@@ -16,8 +16,9 @@ namespace c_.Entities
         public string Instagran { get; set; }
         public string Facebook { get; set; }
         public string Twiter { get; set; }
+   
          [JsonIgnore]
-         public User User { get; set; }
+        public User User { get; set; }
         public int UserId { get; set; }
     }
 }

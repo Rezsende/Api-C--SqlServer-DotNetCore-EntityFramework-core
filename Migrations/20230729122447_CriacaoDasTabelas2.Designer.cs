@@ -11,8 +11,8 @@ using c_.Context;
 namespace c_.Migrations
 {
     [DbContext(typeof(FarmaContext))]
-    [Migration("20230727204924_appCriacaoTablesAtualizacaotabelaUser")]
-    partial class appCriacaoTablesAtualizacaotabelaUser
+    [Migration("20230729122447_CriacaoDasTabelas2")]
+    partial class CriacaoDasTabelas2
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -141,6 +141,26 @@ namespace c_.Migrations
                     b.ToTable("ListaDebitos");
                 });
 
+            modelBuilder.Entity("c_.Entities.Planos", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Plano")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("ValorPlano")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Planos");
+                });
+
             modelBuilder.Entity("c_.Entities.User", b =>
                 {
                     b.Property<int>("Id")
@@ -171,6 +191,29 @@ namespace c_.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("c_.Entities.UsersPlanos", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("planosId")
+                        .HasColumnType("int");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("UserId");
+
+                    b.HasIndex("planosId");
+
+                    b.ToTable("UsersPlanos");
                 });
 
             modelBuilder.Entity("c_.Entities.ContatoUser", b =>
@@ -204,6 +247,25 @@ namespace c_.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("c_.Entities.UsersPlanos", b =>
+                {
+                    b.HasOne("c_.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("c_.Entities.Planos", "planos")
+                        .WithMany()
+                        .HasForeignKey("planosId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+
+                    b.Navigation("planos");
                 });
 
             modelBuilder.Entity("c_.Entities.User", b =>
